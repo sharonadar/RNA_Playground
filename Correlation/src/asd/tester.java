@@ -11,11 +11,13 @@ import java.util.Random;
 
 public class tester {
 	
-	public static final int K = 15;
+	public static final int K = 10;
 
 	public static void main(String[] args) throws IOException {
-		List<Couple> couples = generateCouples(4,16);
-		generateCluster(couples);
+		
+		List<Couple> couples = generateCouples(1,3);
+		NE.calc(couples);
+//		generateCluster(couples);
 	}
 
 	protected static List<Couple> generateCouples(int i , int j)
@@ -34,7 +36,6 @@ public class tester {
 		return couples;
 	}
 
-	
 	protected static void generateCluster(List<Couple> couples) {
 		Random rand = new Random();
 		List<Cluster> clusters = new ArrayList<Cluster>();
@@ -44,7 +45,7 @@ public class tester {
 		
 		for (Couple cpl : couples) {
 			Cluster c = null;
-			double maxDiff = Double.MIN_VALUE;
+			double maxDiff = -10;
 			
 			for (Cluster cls : clusters) {
 				double oldCorrelation = Caluclator.getCorrelation(cls);
@@ -62,39 +63,40 @@ public class tester {
 		}
 		
 		for (Cluster cluster : clusters) {
-			System.out.println(Caluclator.getCorrelation(cluster));
+			System.out.println(cluster.getSize() + "\t" + Caluclator.getCorrelation(cluster));
 		}
 	}
 	
 	/**
 	 * Reduce randomly
+	 * 
 	 * @param couples
 	 */
-	protected static void generateCluster2(List<Couple> couples) {
-		Cluster cls = new Cluster(couples);
-		Random rand = new Random();
-		
-		while(cls.getSize() > K) {
-			System.out.println(cls.getSize());
-			
-			while(true) {
-				int a = rand.nextInt(couples.size());
-				Couple c = cls.getValues().get(a);
-				double oldCorrelation = Caluclator.getCorrelation(cls);
-				cls.removeValue(c);
-				double newCorrelation = Caluclator.getCorrelation(cls);
-				if(oldCorrelation > newCorrelation) {
-					cls.addValue(c);
-				} else {
-					break;
-				}
-			}
-		}
-
-		System.out.println(Caluclator.getCorrelation(cls));
-		for (Couple couple : cls.getValues()) {
-			System.out.println(couple);
-		}
-		
-	}
+//	protected static void generateCluster2(List<Couple> couples) {
+//		Cluster cls = new Cluster(couples);
+//		Random rand = new Random();
+//		
+//		while(cls.getSize() > K) {
+//			System.out.println(cls.getSize());
+//			
+//			while(true) {
+//				int a = rand.nextInt(couples.size());
+//				Couple c = cls.getValues().get(a);
+//				double oldCorrelation = Caluclator.getCorrelation(cls);
+//				cls.removeValue(c);
+//				double newCorrelation = Caluclator.getCorrelation(cls);
+//				if(oldCorrelation > newCorrelation) {
+//					cls.addValue(c);
+//				} else {
+//					break;
+//				}
+//			}
+//		}
+//
+//		System.out.println(Caluclator.getCorrelation(cls));
+//		for (Couple couple : cls.getValues()) {
+//			System.out.println(couple);
+//		}
+//		
+//	}
 }

@@ -9,18 +9,18 @@ public class Cluster {
 	private Double averageX = 0.0;
 	private Double averageY = 0.0;
 	
-	public Cluster(List<Couple> couples) {
+	public Cluster(List<Couple> result) {
 		Double sumX = 0.0;
 		Double sumY = 0.0;
 		
-		for (Couple couple : couples) {
+		for (Couple couple : result) {
 			sumX += couple.getValueX();
 			sumY += couple.getValueY();
 		}
 		
-		values = couples;
-		averageX = sumX / couples.size();
-		averageY = sumY / couples.size();
+		values = new ArrayList<Couple>(result);
+		averageX = sumX / result.size();
+		averageY = sumY / result.size();
 	}
 	
 	public Cluster(Couple couple) {
@@ -48,13 +48,13 @@ public class Cluster {
 	
 	public void addValue(Couple c) {
 		averageX = (averageX * values.size() + c.getValueX()) / (values.size() + 1);
-		averageX = (averageY * values.size() + c.getValueY()) / (values.size() + 1);
+		averageY = (averageY * values.size() + c.getValueY()) / (values.size() + 1);
 		values.add(c);
 	}
 	
 	public void removeValue(Couple c) {
 		averageX = (averageX * values.size() - c.getValueX()) / (values.size() - 1);
-		averageX = (averageY * values.size() - c.getValueY()) / (values.size() - 1);
+		averageY = (averageY * values.size() - c.getValueY()) / (values.size() - 1);
 		values.remove(c);
 	}
 }
