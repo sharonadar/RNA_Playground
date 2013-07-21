@@ -105,10 +105,8 @@ public class GeneAlignmentOptionsPane extends GraphOptionsPane {
 	}
 
 	private void generateInputTab(JTabbedPane tabbedPane) {
-		for(int i = 0 ; i < 6 ; ++i) {
-			ReadInput panel = new ReadInput();
-			tabbedPane.addTab("Input " + tabbedPane.getTabCount(), null, panel, null);
-		}
+		ReadInput panel = new ReadInput();
+		tabbedPane.addTab("Input " + tabbedPane.getTabCount(), null, panel, null);
 	}
 
 	@Override
