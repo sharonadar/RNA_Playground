@@ -57,8 +57,9 @@ public class ComparisonGraphMultiPrinter {
 
 	protected static List<ReadDetails> getInputFiles() {
 		List<ReadDetails> inputs = new ArrayList<ReadDetails>();
-		 String name = "15";
+//		 String name = "15";
 //		String name = "26G";
+		String name = "22G";
 		inputs.add(new ReadDetails("2." + name,
 				"C:/cygwin/home/sharon.adar/Data/Samples/sample_2." + name + ".align",
 				"C:/cygwin/home/sharon.adar/Data/Samples/sample_2." + name + ".count"));

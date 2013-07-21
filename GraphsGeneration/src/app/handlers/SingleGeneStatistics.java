@@ -37,7 +37,7 @@ public abstract class SingleGeneStatistics {
 		
 		dataG = new double[N_BINS];
 		
-		fillData(dataG, gene, -1);
+		fillData(dataG, gene, 100);
 	}
 	
 	protected void fillData(double[] bins, Range range, double count) {

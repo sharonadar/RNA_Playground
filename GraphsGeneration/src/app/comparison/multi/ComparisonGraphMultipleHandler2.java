@@ -72,6 +72,8 @@ public class ComparisonGraphMultipleHandler2 implements AlignmentHandlersIfc{
 		
 		for (String name : names) {
 			keys.addAll(values.get(name).keySet());
+			keys.addAll(valuesAfter.get(name).keySet());
+			keys.addAll(valuesBefore.get(name).keySet());
 		}
 		
 		printVals(keys);
