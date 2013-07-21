@@ -29,7 +29,7 @@ public class GeneAlignmentGraph {
 		CategoryPlot topPlot = gene.getCategoryPlot();
 		NumberAxis topAxis = (NumberAxis) topPlot.getRangeAxis();
 		topAxis.setLowerBound(0);
-		topAxis.setUpperBound(0);
+		topAxis.setUpperBound(1);
 	
 		CategoryPlot plusPlot = geneAlignsP.getCategoryPlot();
 		CategoryPlot minusPlot = geneAlignsM.getCategoryPlot();
