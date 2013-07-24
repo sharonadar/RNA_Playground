@@ -3,12 +3,18 @@ package Games.sirnaHeatmap;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.GridLayout;
-import java.util.Collection;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Label;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import reader.ReadDetails;
 
 public class HeatMapContainer extends JFrame {
 
@@ -16,9 +22,10 @@ public class HeatMapContainer extends JFrame {
 	
 	private JScrollPane scrollPane;
 
-	public HeatMapContainer(Collection<Component> collection) {
+	public HeatMapContainer(List<ReadDetails> inputs,
+			Map<String, List<Component>> graphs) {
 		setTitle("Scrolling Pane Application");
-		setSize(400, 600);
+		setSize(800, 500);
 		setBackground(Color.gray);
 
 		JPanel topPanel = new JPanel();
@@ -27,10 +34,31 @@ public class HeatMapContainer extends JFrame {
 		getContentPane().add(topPanel);
 		
 		JPanel pan = new JPanel();
-		pan.setLayout(new GridLayout(collection.size(),1));
+		pan.setLayout(new GridBagLayout());
 		
-		for (Component cmp : collection) {
-			pan.add(cmp);
+		int i = 1;
+		for (ReadDetails rd : inputs) {
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.gridx = i++;
+			constraints.gridy = 0;
+			pan.add(new Label(rd.getName()),constraints);
+		}
+		
+		int j = 0;
+		for (Entry<String, List<Component>> cmps : graphs.entrySet()) {
+			j++;
+			i = 0;
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.gridx = i++;
+			constraints.gridy = j;
+			pan.add(new Label(cmps.getKey()), constraints);
+			
+			for (Component cmp : cmps.getValue()) {
+				constraints = new GridBagConstraints();
+				constraints.gridx = i++;
+				constraints.gridy = j;
+				pan.add(cmp, constraints);
+			}
 		}
 		
 		scrollPane = new JScrollPane();

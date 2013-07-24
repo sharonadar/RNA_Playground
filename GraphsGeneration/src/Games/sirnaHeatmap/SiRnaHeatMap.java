@@ -32,7 +32,7 @@ public class SiRnaHeatMap {
 		this.params = params;
 	}
 	
-	public Map<String, Component> generateGraph() throws Exception {
+	public Map<String, List<Component>> generateGraph() throws Exception {
 		EnsambleParser<GoCategory> parser = new EnsambleParser<GoCategory>(GoCategory.class);
 		EnsambleGenes<GoCategory> categories = 
 				parser.parseFile(params.getReferenceFileName(), 
@@ -40,7 +40,7 @@ public class SiRnaHeatMap {
 		
 		TestSpecificReadsReader generator = new TestSpecificReadsReader(categories);
 		generator.handleReads(params.getInputs(), new PrimaryAlignmentFilter());
-		return generator.getResults();
+		return generator.getResults(params.getInputs());
 	}
 
 	private static class TestSpecificReadsReader extends AlignmentReader {
@@ -49,15 +49,17 @@ public class SiRnaHeatMap {
 			super(context);
 		}
 		
-		public Map<String, Component> getResults() {
-			Map<String, Component> res = new HashMap<String, Component>();
+		public Map<String, List<Component>> getResults(List<ReadDetails> resOrder) {
+			Map<String, List<Component>> res = new HashMap<String, List<Component>>();
 			for (Entry<String, List<AlignmentHandlersIfc>> itr : containers.entrySet()) {
+				List<Component> comps = new ArrayList<Component>();
 				for (AlignmentHandlersIfc handler : itr.getValue()) {
 					Map<String, Component> handlerRes = handler.collectResults(); 
-					for ( Entry<String, Component> frames : handlerRes.entrySet()) {
-						res.put(frames.getKey(), frames.getValue());
+					for (ReadDetails rd : resOrder) {
+						comps.add(handlerRes.get(rd.getName()));
 					}
 				}
+				res.put(itr.getKey(), comps);
 			}
 			return res;
 		}

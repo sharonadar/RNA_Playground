@@ -8,8 +8,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Paint;
 
-import javax.swing.JFrame;
-
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -33,11 +31,14 @@ public class ColorscaledGeneAlignmentGraph {
 
 		@Override
 		public Paint getPaint(double value) {
+			if(value == -1)
+				return new Color(0,0,255);
+			
 			 double v = Math.max(value, getLowerBound());
 			 v = Math.min(v, getUpperBound());
 			 double g = ((v - getLowerBound()) / (getUpperBound() - getLowerBound())) * 255.0;
 			 if(g == 0)
-				 return Color.lightGray;
+				 return Color.BLACK;
 			 int val = (int)(Math.log(g+1) / Math.log(1.022));
 			 return new Color(val, 255 - val, 0);
 		}
@@ -45,14 +46,16 @@ public class ColorscaledGeneAlignmentGraph {
 	
 	public static Component getPainting(ContainerParams container, DefaultXYZDataset dataset) {
 		
-        NumberAxis xAxis = new NumberAxis("Gene");
+        NumberAxis xAxis = new NumberAxis();
         xAxis.setLowerMargin(0.0);
         xAxis.setUpperMargin(0.0);
+        xAxis.setVisible(false);
         
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLowerMargin(0.0);
         yAxis.setUpperMargin(0.0);
         yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setVisible(false);
         
         XYBlockRenderer renderer = new XYBlockRenderer();
         ColorfullPaintScale paintScale = new ColorfullPaintScale(0, 100);
@@ -60,12 +63,17 @@ public class ColorscaledGeneAlignmentGraph {
         renderer.setPaintScale(paintScale);
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
         plot.setBackgroundPaint(Color.lightGray);
-        JFreeChart chart = new JFreeChart(container.getTitle(), plot);
+        JFreeChart chart = new JFreeChart(null, plot);
+        
+//        TextTitle title = new TextTitle(container.getTitle());
+//        title.setPosition(RectangleEdge.LEFT);
+//        chart.setTitle(title);
         chart.removeLegend();
         
         PaintScaleLegend psl = new PaintScaleLegend(paintScale, xAxis);
         psl.setAxisOffset(5.0);
-        psl.setPosition(RectangleEdge.BOTTOM);
+        psl.setPosition(RectangleEdge.RIGHT);
+        psl.setBackgroundPaint(Color.lightGray);
         psl.setMargin(new RectangleInsets(5, 5, 5, 5));
         chart.addSubtitle(psl);
         

@@ -16,9 +16,11 @@ import alignment.Alignment;
 public class SingleColoredGeneAlignmentStatistics extends SingleGeneStatistics implements AlignmentHandlersIfc {
 	
 	private Map<String, Component> graphs = new HashMap<String, Component>();
+	private final Range gene;
 	
 	public SingleColoredGeneAlignmentStatistics(final int n_bins, final int mergin, final String title, final Range gene) {
 		super(title, n_bins, mergin, gene);
+		this.gene = gene;
 	}
 	
 	@Override
@@ -40,14 +42,20 @@ public class SingleColoredGeneAlignmentStatistics extends SingleGeneStatistics i
 		double[][] data = new double[3][N_BINS * 3];
 		
 		for(int i = 0 ; i < N_BINS ; ++i) {
-			addValue(data, 2,i, senseP[i]);
-			addValue(data, 1,i, dataG[i]);
+			addValue(data, 1,i, senseP[i]);
 			addValue(data, 0,i, antisenseP[i]);
 		}
 		
+		int s_pos = (int) Math.max(((gene.getStart() - OFFSET)/ BIN_SIZE) , 0);
+		int e_pos = (int) Math.min(Math.floor((gene.getEnd() - OFFSET) / BIN_SIZE) , N_BINS - 1);
+		addValue(data, 0,s_pos, -1);
+		addValue(data, 1,s_pos, -1);
+		addValue(data, 0,e_pos, -1);
+		addValue(data, 1,e_pos, -1);
+		
 		DefaultXYZDataset datasets = new DefaultXYZDataset();
 		datasets.addSeries(name, data);
-		graphs.put(this.geneName, generateGraphsFromSamples(this.geneName, datasets));
+		graphs.put(name, generateGraphsFromSamples(this.geneName, datasets));
 	}
 	
 	public void addValue(double[][] values, int x, int y, double z){
