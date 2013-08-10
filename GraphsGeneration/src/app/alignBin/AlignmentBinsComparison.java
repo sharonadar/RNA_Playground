@@ -44,8 +44,9 @@ public class AlignmentBinsComparison {
 			Chromosome[] chr = Chromosome.values();
 			for (Chromosome chromosome : chr) {
 				AlignmentFunctionOptions function = input.isSeparateGraphs() ? null : input.getFunction();
-				containers.put(chromosome.name(), Arrays.asList(
-						new AlignmentHandlersIfc[] {new AlignmentBinHandler(chromosome, function)}));
+				containers.put(chromosome.name(), Arrays.asList(new AlignmentHandlersIfc[] {
+						new AlignmentBinHandler(chromosome.name(), chromosome.getLength(), function, 
+								input.getInputs().size(), input.isSeparateGraphs())}));
 			}
 			return containers;
 		}
@@ -66,9 +67,6 @@ public class AlignmentBinsComparison {
 		@Override
 		protected void handleSingleAlignment(ReadDetails read, Alignment align,
 				double count) {
-			
-			if(!align.isMapped() || align.isSecondary())
-				return;
 			
 			Chromosome chr = align.getChromosome();
 			List<AlignmentHandlersIfc> handlers = containers.get(chr.name());
