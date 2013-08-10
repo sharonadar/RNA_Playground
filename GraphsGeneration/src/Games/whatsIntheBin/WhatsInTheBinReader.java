@@ -1,6 +1,7 @@
 package Games.whatsIntheBin;
 
 import general.Chromosome;
+import general.range.Range;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class WhatsInTheBinReader extends AlignmentReader {
 
 	private WhatsInTheBin tester;
 
-	public WhatsInTheBinReader(List<InterestingBin> bins) {
+	public WhatsInTheBinReader(List<InterestingPart> bins) {
 		super(null);
 		this.tester = new WhatsInTheBin(bins);
 	}
@@ -36,17 +37,19 @@ public class WhatsInTheBinReader extends AlignmentReader {
 		if (!align.isMapped() || align.isSecondary())
 			return;
 
-		tester.handleAlignment(null, null, align, count);
+		tester.handleAlignment(null, read.getName(), align, count);
 	}
 	
 	public static void main(String[] args) throws Exception {
 		List<ReadDetails> inputs = new ArrayList<ReadDetails>();
-		inputs.add(new ReadDetails("sample_22", "C:/cygwin/home/sharon.adar/Data/Samples/sample_22.21U.align", 
-				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_22.21U.count"));
-		inputs.add(new ReadDetails("sample_2", "C:/cygwin/home/sharon.adar/Data/Samples/sample_2.21U.align", 
-				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_2.21U.count"));
-		List<InterestingBin> bins = new ArrayList<InterestingBin>();
-		bins.add(new InterestingBin(Chromosome.I, 62, false));
+		inputs.add(new ReadDetails("sample_22", "C:/cygwin/home/sharon.adar/Data/Samples/sample_22.22G.align", 
+				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_22.22G.count"));
+		inputs.add(new ReadDetails("sample_21", "C:/cygwin/home/sharon.adar/Data/Samples/sample_21.22G.align", 
+				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_21.22G.count"));
+		inputs.add(new ReadDetails("sample_2", "C:/cygwin/home/sharon.adar/Data/Samples/sample_2.22G.align", 
+				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_2.22G.count"));
+		List<InterestingPart> bins = new ArrayList<InterestingPart>();
+		bins.add(new InterestingGene(Chromosome.V, new Range(	18776199	,18780216),  false	));
 		
 		WhatsInTheBinReader generator = new WhatsInTheBinReader(bins);
 		generator.handleReads(inputs, new PrimaryAlignmentFilter());

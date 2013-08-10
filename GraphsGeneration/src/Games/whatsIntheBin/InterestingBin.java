@@ -3,7 +3,7 @@ package Games.whatsIntheBin;
 import alignment.Alignment;
 import general.Chromosome;
 
-public class InterestingBin {
+public class InterestingBin implements InterestingPart {
 	
 	private static final int N_BINS = 100;
 	private final Chromosome chr;
@@ -16,6 +16,10 @@ public class InterestingBin {
 		this.isPlusStrand = isPlusStrand;
 	}
 	
+	/* (non-Javadoc)
+	 * @see Games.whatsIntheBin.InterestingPart#isInteresting(alignment.Alignment)
+	 */
+	@Override
 	public boolean isInteresting(Alignment align) {
 		if(this.chr != align.getChromosome()) {
 			return false;

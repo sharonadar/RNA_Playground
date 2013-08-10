@@ -9,9 +9,9 @@ import alignment.Alignment;
 
 public class WhatsInTheBin implements AlignmentHandlersIfc{
 	
-	private List<InterestingBin> bins;
+	private List<InterestingPart> bins;
 	
-	public WhatsInTheBin(List<InterestingBin> bins) {
+	public WhatsInTheBin(List<InterestingPart> bins) {
 		this.bins = bins;
 	}
 	
@@ -19,9 +19,9 @@ public class WhatsInTheBin implements AlignmentHandlersIfc{
 	public void handleAlignment(Object ref, String name, Alignment align,
 			double count) {
 
-		for (InterestingBin bin : bins) {
+		for (InterestingPart bin : bins) {
 			if(bin.isInteresting(align)) {
-				System.out.println(align.getSequence() + "\t" + count + "\t" + align.getPosition());
+				System.out.println(name + "\t" + align.getSequence() + "\t" + count + "\t" + align.getPosition());
 			}
 		}
 	}
