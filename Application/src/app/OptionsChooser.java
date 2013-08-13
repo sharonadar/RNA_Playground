@@ -14,6 +14,7 @@ import Options.ComparisonOptionsPane;
 import Options.GeneAlignmentOptionsPane;
 import Options.GraphOptionsPane;
 import Options.PiesOptionsPane;
+import Options.RangeAlignmentOptionsPane;
 import Options.TypedPieOptionsPane;
 
 public class OptionsChooser implements ActionListener{
@@ -28,6 +29,7 @@ public class OptionsChooser implements ActionListener{
 		options = new HashMap<String, Class<? extends GraphOptionsPane>>();
 		options.put("Alignment Bin" , AlignmentOptionsPane.class);
 		options.put("Comparison graph", ComparisonOptionsPane.class);
+		options.put("Range alignment", RangeAlignmentOptionsPane.class);
 		options.put("Gene alignment", GeneAlignmentOptionsPane.class);
 		options.put("Pies", PiesOptionsPane.class);
 		options.put("Typed pies", TypedPieOptionsPane.class);

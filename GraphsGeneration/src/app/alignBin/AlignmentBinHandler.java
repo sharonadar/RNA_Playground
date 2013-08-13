@@ -84,11 +84,11 @@ public class AlignmentBinHandler implements AlignmentHandlersIfc{
 	
 	protected void logResults() {
 
-		for(int j = 0 ; j < 2 ; ++j) {
-			for(int i = 0 ; i < 2 ; ++i) {
-				System.out.print(names[i] +"\t" + chrName + "\t" + (j == 0 ? "+" : "-") + "\t");
-				for (double[] ds : mapping[j]) {
-					System.out.print(ds[i] + "\t");
+		for(int strand = 0 ; strand < 2 ; ++strand) {
+			for(int sample = 0 ; sample < names.length ; ++sample) {
+				System.out.print(names[sample] +"\t" + chrName + "\t" + (strand == 0 ? "+" : "-") + "\t");
+				for (double[] ds : mapping[strand]) {
+					System.out.print(ds[sample] + "\t");
 				}
 				System.out.println();
 			}

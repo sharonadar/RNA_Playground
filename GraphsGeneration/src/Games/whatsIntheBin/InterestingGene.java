@@ -18,15 +18,32 @@ public class InterestingGene implements InterestingPart{
 	}
 	
 	public boolean isInteresting(Alignment align) {
+		return isInteresting(align, false);
+	}
+	
+	public boolean isInteresting(Alignment align, boolean reverse) {
 		if(this.chr != align.getChromosome()) {
 			return false;
 		}
 		
-		// We want to have the reversed strand
-		if(this.isPlusStrand == align.isPlusStrand())
+		if(getStrandSign(reverse) == align.isPlusStrand())
 			return false;
 		
 		return (this.range.compare(align.getRange(), MARGIN) == 0);
+	}
+	
+	private boolean getStrandSign(boolean reverse) {
+		if(reverse)
+			return !isPlusStrand;
+		return isPlusStrand;
+	}
+
+	public Range getRange() {
+		return range;
+	}
+
+	public Chromosome getChr() {
+		return chr;
 	}
 
 }
