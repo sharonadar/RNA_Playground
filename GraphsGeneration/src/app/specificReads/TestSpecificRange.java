@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import reader.AlignmentHandlersIfc;
 import reader.AlignmentReader;
 import reader.ReadDetails;
-import Games.whatsIntheBin.InterestingBin;
 import Games.whatsIntheBin.InterestingGene;
 import alignment.Alignment;
 import app.handlers.SingleGeneAlignmentCount;
