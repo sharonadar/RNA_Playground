@@ -2,15 +2,11 @@ package app.alignBin;
 
 import java.awt.Component;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
 
 import reader.AlignmentHandlersIfc;
 import reader.AlignmentReader;
@@ -21,21 +17,10 @@ import common.filters.PrimaryAlignmentFilter;
 
 public class AlignmentBinGenerator {
 	
-	public static void main(String[] args) throws Exception {
-		AlignmentBinGenerator generator = new AlignmentBinGenerator();
-		Map<String, Component> res = generator.generateGraph();
-		
-		JFrame frame = new JFrame();
-		JTabbedPane panel = new JTabbedPane();
-		for (Entry<String, Component> cmp : res.entrySet()) {
-			panel.add(cmp.getKey(), cmp.getValue());
-		}
-		
-		frame.setContentPane(panel);
-		frame.setTitle("Genes and transportable areas");
-		frame.setBounds(100, 100, 800, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+	private AlignmentBinsInput params;
+	
+	public AlignmentBinGenerator(AlignmentBinsInput params) {
+		this.params = params;
 	}
 	
 	private class AlignmentBinGeneratorParams {
@@ -54,27 +39,20 @@ public class AlignmentBinGenerator {
 		public boolean shouldKeep(Alignment align) {
 			if(!super.shouldKeep(align))
 				return false;
-			if(align.getSequence().length() != 21)
-				return false;
-			if(align.getSequence().charAt(0) != 'T')
-				return false;
+//			if(align.getSequence().length() != 21)
+//				return false;
+//			if(align.getSequence().charAt(0) != 'T')
+//				return false;
 			return true;
 		}
 	}
 
 	public Map<String, Component> generateGraph() throws Exception {
 		
-		int geneSize = (int) (new File("C:/cygwin/home/sharon.adar/Data/Genome/Extra/p2NY_Prab-3_rde-4_SL2.txt")).length();
-		List<ReadDetails> inputs = new ArrayList<ReadDetails>();
-		inputs.add(new ReadDetails("sample_2", "C:/cygwin/home/sharon.adar/Data/Samples/florcuent/sample_2.15.rab.align", 
-				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_2.15.count"));
-		inputs.add(new ReadDetails("sample_21", "C:/cygwin/home/sharon.adar/Data/Samples/florcuent/sample_21.15.rab.align", 
-				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_21.15.count"));
-		inputs.add(new ReadDetails("sample_22", "C:/cygwin/home/sharon.adar/Data/Samples/florcuent/sample_22.15.rab.align", 
-				 "C:/cygwin/home/sharon.adar/Data/Samples/sample_22.15.count"));
+		int geneSize = (int) (new File(params.getReferenceName())).length();
 		
-		AlignmentBinReader generator = new AlignmentBinReader(new AlignmentBinGeneratorParams(inputs.size(), geneSize));
-		generator.handleReads(inputs, new MyFilter());
+		AlignmentBinReader generator = new AlignmentBinReader(new AlignmentBinGeneratorParams(params.getInputs().size(), geneSize));
+		generator.handleReads(params.getInputs(), new MyFilter());
 		return generator.getResults();
 	}
 	

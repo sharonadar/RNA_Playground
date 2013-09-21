@@ -71,15 +71,14 @@ public class AlignmentBinHandler implements AlignmentHandlersIfc{
 			}
 			
 			if(separateGraph) {
-				graphs.put(names[j], generateSingleGraph(names[j], datasetP, datasetM));
+				graphs.put(chrName +"_" + names[j], generateSingleGraph(names[j], datasetP, datasetM));
 				datasetP = new DefaultCategoryDataset();
 				datasetM = new DefaultCategoryDataset();
-
+			} else {
+				graphs.put(chrName,	generateSingleGraph(chrName, datasetP, datasetM));
+				break;
 			}
 		}
-
-		if(!separateGraph)
-			graphs.put(chrName,	generateSingleGraph(chrName, datasetP, datasetM));
 	}
 	
 	protected void logResults() {

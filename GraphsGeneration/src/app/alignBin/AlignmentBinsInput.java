@@ -6,6 +6,7 @@ import reader.ReadDetails;
 
 public class AlignmentBinsInput {
 	
+	private String referenceName;
 	private List<ReadDetails> inputs;
 	private boolean separateGraphs;
 	private AlignmentFunctionOptions function;
@@ -14,6 +15,11 @@ public class AlignmentBinsInput {
 		this.inputs = inputs;
 		this.separateGraphs = separateGraphs;
 		this.function = function;
+	}
+
+	public AlignmentBinsInput(List<ReadDetails> inputs, String referenceName) {
+		this.referenceName = referenceName;
+		this.inputs = inputs;
 	}
 
 	public List<ReadDetails> getInputs() {
@@ -38,6 +44,14 @@ public class AlignmentBinsInput {
 
 	public void setFunction(AlignmentFunctionOptions function) {
 		this.function = function;
+	}
+	
+	public String getReferenceName() {
+		return referenceName;
+	}
+
+	public void setReferenceName(String referenceName) {
+		this.referenceName = referenceName;
 	}
 
 }

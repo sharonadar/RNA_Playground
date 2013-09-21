@@ -11,8 +11,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import common.filters.EmptyFilter;
+import common.groups.DefaultAlignmentGroupPrimary;
+import common.groups.DefaultAlignmentKeyExtractor;
+
 
 public class AlignmentParser {
+	
+	public static void main(String[] args) throws Exception {
+		AlignmentParser parser = new AlignmentParser();
+		Collection<DefaultAlignmentGroupPrimary> res = parser.parseFile(
+				"C:\\temp\\test.txt", new EmptyFilter<Alignment>(),
+				new DefaultAlignmentKeyExtractor(),
+				DefaultAlignmentGroupPrimary.class);
+	}
 
 	public <R, T extends Group<Alignment>> Collection<T> parseFile(String fileName, 
 			ParserFilter<Alignment> filter, 

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import Options.AlignmentOptionsPane;
 import Options.ComparisonOptionsPane;
+import Options.ExternalReferenceAlignmentOptionsPane;
 import Options.GeneAlignmentOptionsPane;
 import Options.GraphOptionsPane;
 import Options.PiesOptionsPane;
@@ -31,6 +32,7 @@ public class OptionsChooser implements ActionListener{
 		options.put("Comparison graph", ComparisonOptionsPane.class);
 		options.put("Range alignment", RangeAlignmentOptionsPane.class);
 		options.put("Gene alignment", GeneAlignmentOptionsPane.class);
+		options.put("External ref", ExternalReferenceAlignmentOptionsPane.class);
 		options.put("Pies", PiesOptionsPane.class);
 		options.put("Typed pies", TypedPieOptionsPane.class);
 		
