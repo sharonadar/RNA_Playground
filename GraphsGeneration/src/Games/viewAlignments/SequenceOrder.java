@@ -5,6 +5,7 @@ public enum SequenceOrder {
 	MATCH_CHAR('M'),
 	REPLACE_CHAR('E'),
 	DELETE_CHAR('D'),
+	SOFT_CLIPPING('S'),
 	INSERT_CHAR('I');
 	
 	final char representor;

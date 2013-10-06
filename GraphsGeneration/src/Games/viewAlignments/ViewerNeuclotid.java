@@ -2,7 +2,7 @@ package Games.viewAlignments;
 
 class ViewerNeuclotid {
 	
-	Character oldValue = null;
+	private Character oldValue = null;
 	private Character newValue = null;
 	
 	public ViewerNeuclotid(Character oldValue, Character newValue) {
@@ -29,5 +29,21 @@ class ViewerNeuclotid {
 		if(newValue.equals(oldValue))
 			return SequenceOrder.MATCH_CHAR;
 		return SequenceOrder.REPLACE_CHAR;
+	}
+
+	public Character getOldValue() {
+		return oldValue;
+	}
+
+	public void setOldValue(Character oldValue) {
+		this.oldValue = oldValue;
+	}
+
+	public Character getNewValue() {
+		return newValue;
+	}
+
+	public void setNewValue(Character newValue) {
+		this.newValue = newValue;
 	}
 }

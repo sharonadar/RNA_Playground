@@ -41,6 +41,7 @@ public class Sequence {
 					ncs.add(new ViewerNeuclotid(original.charAt(curLength), original.charAt(curLength)));
 					curLength++;
 					break;
+				case SOFT_CLIPPING:
 				case INSERT_CHAR:
 					ncs.add(new ViewerNeuclotid(null, original.charAt(curLength)));
 					curLength++;
@@ -48,6 +49,8 @@ public class Sequence {
 				case DELETE_CHAR:
 					ncs.add(new ViewerNeuclotid(so.representor, null));
 					break;
+				default:
+					throw new RuntimeException("Unexpected char " + order + " " + cigar);
 				}
 			}
 		}
@@ -61,8 +64,8 @@ public class Sequence {
 			int length = Integer.valueOf(matcher.group(1));
 			String replace = matcher.group(2);
 			for(int i = 0 ; i < length ; ++i)
-				if(ncs.get(i).oldValue == null)
-				offset++;
+				if(ncs.get(i).getOldValue() == null)
+					offset++;
 			
 			curLength += length;
 			
@@ -71,13 +74,13 @@ public class Sequence {
 			
 			int startIdx = replace.startsWith("^") ? 1 : 0;
 			for(int i = startIdx ; i < replace.length() ; ++i) {
-				if(ncs.get(curLength + offset).oldValue == null)
+				if(ncs.get(curLength + offset).getOldValue() == null)
 					offset++;
 				
 				if(startIdx == 1)
-					ncs.get(curLength + offset).oldValue = replace.charAt(i);
+					ncs.get(curLength + offset).setOldValue(replace.charAt(i));
 				else
-					ncs.get(curLength + offset).oldValue = replace.charAt(i);
+					ncs.get(curLength + offset).setOldValue(replace.charAt(i));
 				curLength++;
 			}
 		}

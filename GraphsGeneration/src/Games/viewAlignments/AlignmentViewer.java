@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class AlignmentViewer {
 	
+	private static final String OUTPUT_FILE = "C:\\temp\\26g_alignments\\local_d_20_r_3_n_0_l_20.txt";
 	private JFrame frame = new JFrame();
     private JScrollPane scroll = new JScrollPane();
     private JTable myTable;
@@ -43,7 +44,7 @@ public class AlignmentViewer {
     private void generateTable() throws IOException {
     	
     	int maxLength = 0;
-    	BufferedReader br = new BufferedReader(new FileReader(new File("C:\\temp\\omrk.txt")));
+    	BufferedReader br = new BufferedReader(new FileReader(new File(OUTPUT_FILE)));
 		String line;
 		List<String> ids = new ArrayList<String>();
 		List<ViewerNeuclotid[]> seqs = new ArrayList<ViewerNeuclotid[]>();
